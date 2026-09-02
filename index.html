@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Academic Portfolio</title>
     
-    <!-- Preconnect to external domains for instant loading -->
+    <!-- Preconnect for maximum loading speed on Vercel -->
     <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +13,7 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Optimized Google Fonts with swap -->
+    <!-- Optimized Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     
     <script>
@@ -100,7 +100,7 @@
                 "Technical Documentation (Word)", 
                 "Data Processing & Analysis (Excel)", 
                 "Professional Presentations (PowerPoint)", 
-                "IoT"
+                "IoT & Arduino"
             ],
 
             tugas: [
@@ -114,6 +114,15 @@
                     linkTugas: "https://drive.google.com/file/d/ContohLinkVideo1/view"
                 },
                 {
+                    judul: "Technical English Essay",
+                    deskripsi: "An academic essay detailing the transition to renewable energy systems, emphasizing proper English grammar and structure.",
+                    deskripsiAlignment: "text-justify",
+                    kategoriIkon: "dokumen",
+                    iconDriveId: "",
+                    teksTombol: "Read Essay",
+                    linkTugas: "https://docs.google.com/document/d/ContohLinkDokumen2/edit"
+                },
+                {
                     judul: "Project Pitch Presentation",
                     deskripsi: "A slide deck and video recording of an English pitch presentation proposing a smart home IoT system.",
                     deskripsiAlignment: "text-justify",
@@ -121,6 +130,15 @@
                     iconDriveId: "",
                     teksTombol: "View Slides",
                     linkTugas: "https://docs.google.com/presentation/d/ContohLinkPresentasi3/edit"
+                },
+                {
+                    judul: "Project Photo Documentation",
+                    deskripsi: "Visual documentation and infographics showcasing our team's collaborative English project implementation.",
+                    deskripsiAlignment: "text-justify",
+                    kategoriIkon: "foto",
+                    iconDriveId: "",
+                    teksTombol: "View Photos",
+                    linkTugas: "https://drive.google.com/drive/folders/ContohLinkFolderFoto"
                 }
             ]
         };
@@ -301,7 +319,7 @@
                 );
             });
 
-            // Icons dictionary
+            // Icons dictionary including 'foto' category
             const icons = {
                 video: {
                     colorConfig: { bg: 'bg-blue-50', text: 'text-blue-600', hoverBg: 'group-hover:bg-blue-600' },
@@ -314,6 +332,10 @@
                 presentasi: {
                     colorConfig: { bg: 'bg-orange-50', text: 'text-orange-600', hoverBg: 'group-hover:bg-orange-600' },
                     svg: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" /></svg>`
+                },
+                foto: {
+                    colorConfig: { bg: 'bg-emerald-50', text: 'text-emerald-600', hoverBg: 'group-hover:bg-emerald-600' },
+                    svg: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>`
                 }
             };
 
