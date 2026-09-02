@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Portfolio</title>
+    <title>English Academic Portfolio</title>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -49,7 +49,7 @@
 
         /* Pop-up Entrance Animation */
         @keyframes popUp {
-            0% { opacity: 0; transform: translateY(25px) scale(0.96); }
+            0% { opacity: 0; transform: translateY(20px) scale(0.97); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
         .animate-popup {
@@ -113,7 +113,7 @@
                     kategoriIkon: "video",
                     iconDriveId: "",
                     teksTombol: "Watch Video",
-                    linkTugas: "https://drive.google.com"
+                    linkTugas: "https://drive.google.com/file/d/ContohLinkVideo1/view"
                 },
                 {
                     judul: "Technical English Essay",
@@ -122,7 +122,7 @@
                     kategoriIkon: "dokumen",
                     iconDriveId: "",
                     teksTombol: "Read Essay",
-                    linkTugas: "https://docs.google.com/document"
+                    linkTugas: "https://docs.google.com/document/d/ContohLinkDokumen2/edit"
                 },
                 {
                     judul: "Project Pitch Presentation",
@@ -131,7 +131,7 @@
                     kategoriIkon: "presentasi",
                     iconDriveId: "",
                     teksTombol: "View Slides",
-                    linkTugas: "https://docs.google.com/presentation"
+                    linkTugas: "https://docs.google.com/presentation/d/ContohLinkPresentasi3/edit"
                 }
             ]
         };
@@ -145,7 +145,7 @@
         <!-- HEADER GRID -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             
-            <!-- PROFILE CARD (Skeleton initially, replaced on load) -->
+            <!-- PROFILE CARD (Skeleton initially) -->
             <div id="skeleton-profile" class="bento-card md:col-span-2 p-6 md:p-8 flex flex-col sm:flex-row items-center sm:items-start gap-6">
                 <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-full skeleton-shimmer flex-shrink-0"></div>
                 <div class="flex-1 space-y-3 w-full mt-2">
@@ -162,7 +162,7 @@
             <div id="real-profile" class="bento-card md:col-span-2 p-6 md:p-8 flex flex-col sm:flex-row items-center sm:items-start gap-6 animate-popup hidden" style="animation-delay: 50ms;">
                 <div class="relative w-28 h-28 sm:w-32 sm:h-32 flex-shrink-0">
                     <div class="absolute inset-0 bg-brand-500 rounded-full blur-md opacity-30"></div>
-                    <img id="render-foto" src="" alt="Profile Picture" class="relative w-full h-full object-cover rounded-full border-2 border-white shadow-lg bg-slate-100">
+                    <img id="render-foto" src="" alt="Profile Picture" class="relative w-full h-full object-cover rounded-full border-2 border-white shadow-lg bg-slate-100" loading="lazy">
                 </div>
                 
                 <div class="text-center sm:text-left flex-1 mt-2 sm:mt-0">
@@ -218,11 +218,19 @@
             </div>
         </div>
 
-        <!-- ASSIGNMENTS SECTION -->
+        <!-- ASSIGNMENTS SECTION & LIVE SEARCH -->
         <div>
-            <div class="flex items-center gap-3 mb-6 mt-6 animate-popup" style="animation-delay: 350ms">
-                <div class="h-8 w-1.5 bg-brand-500 rounded-full"></div>
-                <h2 class="font-display font-bold text-2xl text-slate-900">English Assignments</h2>
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 mt-6 animate-popup" style="animation-delay: 350ms">
+                <div class="flex items-center gap-3">
+                    <div class="h-8 w-1.5 bg-brand-500 rounded-full"></div>
+                    <h2 class="font-display font-bold text-2xl text-slate-900">English Assignments</h2>
+                </div>
+                <div class="relative w-full sm:w-72">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </span>
+                    <input type="text" id="task-search" placeholder="Search assignments..." class="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 shadow-sm">
+                </div>
             </div>
             
             <div id="render-tugas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
@@ -305,9 +313,7 @@
                 );
             });
 
-            // Render Tugas with Pop-up stagger
-            const tugasContainer = document.getElementById('render-tugas');
-            
+            // Icons dictionary
             const icons = {
                 video: {
                     colorConfig: { bg: 'bg-blue-50', text: 'text-blue-600', hoverBg: 'group-hover:bg-blue-600' },
@@ -323,34 +329,63 @@
                 }
             };
 
-            data.tugas.forEach((tugas, index) => {
-                const categoryData = icons[tugas.kategoriIkon] || icons.video; 
-                const c = categoryData.colorConfig;
-                
-                let iconDisplay = categoryData.svg;
-                if (tugas.iconDriveId && tugas.iconDriveId.trim() !== "") {
-                    iconDisplay = `<img src="https://lh3.googleusercontent.com/d/${tugas.iconDriveId.trim()}" alt="Task Logo" class="w-full h-full object-cover rounded-xl" onerror="this.onerror=null; this.replaceWith(document.createTextNode('📁'));">`;
+            // Render Tasks Function with Search Filter Support
+            function renderTasks(searchQuery = "") {
+                const tugasContainer = document.getElementById('render-tugas');
+                tugasContainer.innerHTML = "";
+
+                const filtered = data.tugas.filter(t => 
+                    t.judul.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                    t.deskripsi.toLowerCase().includes(searchQuery.toLowerCase())
+                );
+
+                if (filtered.length === 0) {
+                    tugasContainer.innerHTML = `
+                        <div class="md:col-span-3 bento-card p-12 text-center text-slate-400">
+                            <p class="text-base font-medium">No assignments found matching "${searchQuery}"</p>
+                        </div>
+                    `;
+                    return;
                 }
 
-                const taskAlign = tugas.deskripsiAlignment || "text-justify";
-                const delayMs = 400 + (index * 80);
-                
-                const cardHtml = `
-                    <div class="bento-card p-6 flex flex-col justify-between group animate-popup" style="animation-delay: ${delayMs}ms">
-                        <div>
-                            <div class="w-12 h-12 ${c.bg} ${c.text} rounded-xl flex items-center justify-center mb-4 overflow-hidden ${c.hoverBg} group-hover:text-white transition-colors duration-300">
-                                ${iconDisplay}
+                filtered.forEach((tugas, index) => {
+                    const categoryData = icons[tugas.kategoriIkon] || icons.video; 
+                    const c = categoryData.colorConfig;
+                    
+                    let iconDisplay = categoryData.svg;
+                    if (tugas.iconDriveId && tugas.iconDriveId.trim() !== "") {
+                        iconDisplay = `<img src="https://lh3.googleusercontent.com/d/${tugas.iconDriveId.trim()}" alt="Task Logo" class="w-full h-full object-cover rounded-xl" loading="lazy" onerror="this.onerror=null; this.replaceWith(document.createTextNode('📁'));">`;
+                    }
+
+                    const taskAlign = tugas.deskripsiAlignment || "text-justify";
+                    const delayMs = 400 + (index * 60);
+                    
+                    const cardHtml = `
+                        <div class="bento-card p-6 flex flex-col justify-between group animate-popup" style="animation-delay: ${delayMs}ms">
+                            <div>
+                                <div class="w-12 h-12 ${c.bg} ${c.text} rounded-xl flex items-center justify-center mb-4 overflow-hidden ${c.hoverBg} group-hover:text-white transition-colors duration-300">
+                                    ${iconDisplay}
+                                </div>
+                                <h3 class="font-bold text-xl text-slate-900 mb-2">${tugas.judul}</h3>
+                                <p class="text-slate-600 text-sm mb-6 leading-relaxed ${taskAlign}">${tugas.deskripsi}</p>
                             </div>
-                            <h3 class="font-bold text-xl text-slate-900 mb-2">${tugas.judul}</h3>
-                            <p class="text-slate-600 text-sm mb-6 leading-relaxed ${taskAlign}">${tugas.deskripsi}</p>
+                            <a href="${tugas.linkTugas}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-between w-full px-4 py-3 bg-slate-50 border border-slate-200 text-slate-700 rounded-xl font-medium text-sm group-hover:bg-brand-50 group-hover:border-brand-300 group-hover:text-brand-700 transition-colors">
+                                <span>${tugas.teksTombol}</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                            </a>
                         </div>
-                        <a href="${tugas.linkTugas}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-between w-full px-4 py-3 bg-slate-50 border border-slate-200 text-slate-700 rounded-xl font-medium text-sm group-hover:bg-brand-50 group-hover:border-brand-300 group-hover:text-brand-700 transition-colors">
-                            <span>${tugas.teksTombol}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                        </a>
-                    </div>
-                `;
-                tugasContainer.insertAdjacentHTML('beforeend', cardHtml);
+                    `;
+                    tugasContainer.insertAdjacentHTML('beforeend', cardHtml);
+                });
+            }
+
+            // Initial render
+            renderTasks();
+
+            // Search input event listener
+            const searchInput = document.getElementById('task-search');
+            searchInput.addEventListener('input', (e) => {
+                renderTasks(e.target.value);
             });
         });
     </script>
