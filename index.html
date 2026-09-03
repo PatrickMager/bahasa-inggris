@@ -99,27 +99,33 @@
             background: white;
             border: 1px solid #e2e8f0;
             border-radius: 1.5rem;
-            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.03);
             text-decoration: none;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* Animasi berlaku global di semua perangkat (desktop & mobile) */
         .bento-card:hover {
             border-color: #14b8a6;
-            box-shadow: 0 20px 35px -5px rgb(20 184 166 / 0.2);
-            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 15px 25px -5px rgb(20 184 166 / 0.15);
+            transform: translateY(-4px) scale(1.01);
         }
-        .school-link:hover { color: #0d9488; }
-        .dark .school-link:hover { color: #2dd4bf; }
-        .school-link:hover .school-arrow {
+
+        .school-link {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .school-link:hover, .school-link:active { color: #0d9488; }
+        .dark .school-link:hover, .dark .school-link:active { color: #2dd4bf; }
+        .school-link:hover .school-arrow, .school-link:active .school-arrow {
             opacity: 1;
             transform: translateX(0);
         }
 
         .bento-card:active {
-            transform: translateY(-2px) scale(0.98);
-            box-shadow: 0 8px 15px -3px rgb(20 184 166 / 0.15);
+            transform: translateY(-1px) scale(0.99);
+            box-shadow: 0 6px 12px -3px rgb(20 184 166 / 0.1);
         }
 
         .dark .bento-card {
@@ -129,22 +135,20 @@
         
         .dark .bento-card:hover {
             border-color: #14b8a6;
-            box-shadow: 0 20px 35px -5px rgb(20 184 166 / 0.35);
+            box-shadow: 0 15px 25px -5px rgb(20 184 166 / 0.3);
         }
     </style>
 
     <script>
+        // SEMUA DATA & KUSTOMISASI DIATUR DI SATU TEMPAT INI
         const PORTFOLIO_DATA = {
             profil: {
                 namaLengkap: "Febrian Alfarizzi",
                 nim: "25090520047",
                 jurusan: "Electrical Engineering",
-                idFotoDrive: "1i_89zMAeuGpxwR6y1sNIrz5gxy1qZsBZ",
+                idFotoDrive: "1xm8yRWGfxlHXGbIVftk0jCIPVcdDxYjh",
                 deskripsi: "Passionate Electrical Engineering student bridging the gap between technical systems and clear professional communication through modern tools and collaborative projects.",
-                deskripsiAlignment: "text-justify",
-                email: "febrianalfarizzi29@gmail.com",
-                linkLinkedIn: "https://linkedin.com/in/yourprofile",
-                linkInstagram: "https://instagram.com/_Albriann_"
+                deskripsiAlignment: "text-justify"
             },
             
             skills: [
@@ -156,11 +160,19 @@
 
             riwayatSekolah: [
                 {
+                    jenjang: "university",
+                    namaSekolah: "Universitas Negeri Yogyakarta",
+                    linkSekolah: "https://www.uny.ac.id/",
+                    idLogoDrive: "13rT1ImPlwpafKg0rReYqTXIb-gwSoHFY",
+                    deskripsi: "Universitas Negeri Yogyakarta (UNY) adalah salah satu Perguruan Tinggi Negeri (PTN) badan hukum atau berstatus unggul di Indonesia yang berpusat di Karangmalang, Yogyakarta. Berakar sejarah dari Institut Keguruan dan Ilmu Pendidikan (IKIP) Yogyakarta yang berdiri sejak 1964 sebelum bertransformasi menjadi universitas pada tahun 1999, UNY dikenal luas sebagai institusi terdepan dalam mencetak pendidik profesional serta tenaga ahli yang kompeten di bidang sains, teknologi, seni, dan vokasi dengan mengusung slogan Mandiri, Cendekia, dan Berbudaya.",
+                    deskripsiAlignment: "text-justify"
+                },
+                {
                     jenjang: "High School Education",
-                    namaSekolah: "Nama Sekolah Anda (Ubah Disini)",
-                    linkSekolah: "https://www.google.com",
+                    namaSekolah: "SMA Negeri 1 Jakenan",
+                    linkSekolah: "https://smanja.sch.id/",
                     idLogoDrive: "",
-                    deskripsi: "Completed secondary education with an active role in student organizational leadership, specifically participating in OSIS and Dewan Ambalan programs to hone teamwork, discipline, and public communication skills.",
+                    deskripsi: "SMA Negeri 1 Jakenan (dikenal dengan akronim SMANJA) adalah lembaga pendidikan menengah atas negeri yang berlokasi di Jalan Jakenan - Winong KM 1,5, Kecamatan Jakenan, Kabupaten Pati, Jawa Tengah. Didirikan pada tahun 1985 berdasarkan SK Pendirian Nomor 0601/0/1985, sekolah ini telah lama mendedikasikan diri dalam mencetak lulusan yang cerdas, berkarakter, dan berdaya saing tinggi serta telah mengantongi akreditasi A.",
                     deskripsiAlignment: "text-justify"
                 }
             ],
@@ -201,6 +213,31 @@
                     iconDriveId: "",
                     teksTombol: "View Photos",
                     linkTugas: "https://photos.google.com/"
+                }
+            ],
+
+            // Kustomisasi Kontak / Let's Connect
+            kontak: [
+                {
+                    namaPlatform: "Direct Email",
+                    label: "Email",
+                    tipe: "email",
+                    nilai: "febrianalfarizzi29@gmail.com",
+                    ikon: "email"
+                },
+                {
+                    namaPlatform: "Professional",
+                    label: "LinkedIn Profile",
+                    tipe: "url",
+                    nilai: "https://linkedin.com/in/yourprofile",
+                    ikon: "linkedin"
+                },
+                {
+                    namaPlatform: "Social Media",
+                    label: "Instagram Profile",
+                    tipe: "url",
+                    nilai: "https://instagram.com/_Albriann_",
+                    ikon: "instagram"
                 }
             ]
         };
@@ -312,43 +349,8 @@
                 <h2 class="font-display font-bold text-2xl text-slate-900 dark:text-white">Let's Connect</h2>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 animate-popup" style="animation-delay: 240ms">
-                <a id="render-email" href="#" class="bento-card p-4 flex items-center gap-3 text-slate-700 dark:text-slate-300 group cursor-pointer">
-                    <div class="p-2.5 bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 group-hover:text-blue-500 rounded-xl group-hover:scale-110 group-hover:rotate-6 transition-transform relative flex items-center justify-center w-10 h-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 block group-hover:hidden transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                        <svg class="h-5 w-5 hidden group-hover:block transition-all" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path fill="#3B82F6" d="M22.5 4H1.5C.672 4 0 4.672 0 5.5v13C0 19.328.672 20 1.5 20h21c.828 0 1.5-.672 1.5-1.5v-13C24 4.672 23.328 4 22.5 4z"/>
-                            <path fill="#60A5FA" d="M12 13L24 5.5V5c0-.828-.672-1.5-1.5-1.5h-21C.672 3.5 0 4.172 0 5v.5L12 13z"/>
-                            <path fill="#2563EB" d="M0 18.5V6.5l8 5L0 18.5z"/>
-                            <path fill="#1D4ED8" d="M24 18.5v-12l-8 5 8 7z"/>
-                        </svg>
-                    </div>
-                    <div class="truncate">
-                        <p class="text-xs text-slate-400 dark:text-slate-500 font-medium">Direct Email</p>
-                        <span class="text-sm font-semibold truncate block group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">Email Me</span>
-                    </div>
-                </a>
-
-                <a id="render-linkedin" href="#" target="_blank" rel="noopener noreferrer" class="bento-card p-4 flex items-center gap-3 text-slate-700 dark:text-slate-300 group">
-                    <div class="p-2.5 bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 group-hover:text-[#0A66C2] rounded-xl group-hover:scale-110 group-hover:rotate-6 transition-transform relative flex items-center justify-center w-10 h-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                    </div>
-                    <div class="truncate">
-                        <p class="text-xs text-slate-400 dark:text-slate-500 font-medium">Professional</p>
-                        <span class="text-sm font-semibold truncate block group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">LinkedIn Profile</span>
-                    </div>
-                </a>
-
-                <a id="render-instagram" href="#" target="_blank" rel="noopener noreferrer" class="bento-card p-4 flex items-center gap-3 text-slate-700 dark:text-slate-300 group">
-                    <div class="p-2.5 bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 group-hover:text-[#E4405F] rounded-xl group-hover:scale-110 group-hover:rotate-6 transition-transform relative flex items-center justify-center w-10 h-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                    </div>
-                    <div class="truncate">
-                        <p class="text-xs text-slate-400 dark:text-slate-500 font-medium">Social Media</p>
-                        <span class="text-sm font-semibold truncate block group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">Instagram Profile</span>
-                    </div>
-                </a>
-            </div>
+            <!-- Kontak dirender secara dinamis melalui JavaScript -->
+            <div id="render-kontak" class="grid grid-cols-1 sm:grid-cols-3 gap-6 animate-popup" style="animation-delay: 240ms"></div>
         </div>
     </main>
 
@@ -404,24 +406,6 @@
             document.getElementById('skeleton-profile').classList.add('hidden');
             document.getElementById('real-profile').classList.remove('hidden');
 
-            const emailEl = document.getElementById('render-email');
-            const toastEl = document.getElementById('email-toast');
-            const toastText = document.getElementById('toast-text');
-
-            emailEl.addEventListener('click', (e) => {
-                e.preventDefault();
-                const email = data.profil.email;
-                try { window.location.href = `mailto:${email}`; } catch (err) {}
-                navigator.clipboard.writeText(email).then(() => {
-                    toastText.textContent = `Email (${email}) copied!`;
-                    toastEl.classList.remove('translate-y-20', 'opacity-0');
-                    setTimeout(() => { toastEl.classList.add('translate-y-20', 'opacity-0'); }, 3000);
-                }).catch(() => { window.open(`mailto:${email}`); });
-            });
-            
-            document.getElementById('render-linkedin').href = data.profil.linkLinkedIn;
-            document.getElementById('render-instagram').href = data.profil.linkInstagram;
-
             const imgEl = document.getElementById('render-foto');
             if (data.profil.idFotoDrive && data.profil.idFotoDrive.trim() !== "") {
                 imgEl.src = `https://lh3.googleusercontent.com/d/${data.profil.idFotoDrive.trim()}`;
@@ -439,9 +423,11 @@
             data.riwayatSekolah.forEach((item) => {
                 let logoImgHtml = '';
                 if (item.idLogoDrive && item.idLogoDrive.trim() !== "") {
-                    logoImgHtml = `<img src="https://lh3.googleusercontent.com/d/${item.idLogoDrive.trim()}" alt="School Logo" class="w-12 h-12 sm:w-14 sm:h-14 object-cover rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex-shrink-0 group-hover:scale-105 transition-transform duration-300 bg-slate-100 dark:bg-slate-700">`;
+                    // Frame/Border dihapus, menggunakan object-contain agar logo tampil utuh tanpa terpotong
+                    logoImgHtml = `<img src="https://lh3.googleusercontent.com/d/${item.idLogoDrive.trim()}" alt="School Logo" class="w-12 h-12 sm:w-14 sm:h-14 object-contain flex-shrink-0 group-hover:scale-105 transition-transform duration-300" loading="lazy">`;
                 } else {
-                    logoImgHtml = `<div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 border border-brand-100 dark:border-brand-800/50 flex items-center justify-center font-display font-bold text-lg flex-shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-sm">🏫</div>`;
+                    // Frame/Border dihapus untuk emoji
+                    logoImgHtml = `<div class="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center font-display font-bold text-2xl flex-shrink-0 group-hover:scale-105 transition-transform duration-300">🏫</div>`;
                 }
 
                 const schoolAlign = item.deskripsiAlignment || "text-justify";
@@ -463,6 +449,68 @@
                         <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed relative z-10 ${schoolAlign}">${item.deskripsi}</p>
                     </div>
                 `);
+            });
+
+            // RENDER KONTAK DINAMIS
+            const kontakContainer = document.getElementById('render-kontak');
+            kontakContainer.innerHTML = "";
+            data.kontak.forEach((item) => {
+                let svgIcon = '';
+                let hoverColorClass = '';
+                if (item.ikon === 'email') {
+                    hoverColorClass = 'group-hover:text-blue-500';
+                    svgIcon = `
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 block group-hover:hidden transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                        <svg class="h-5 w-5 hidden group-hover:block transition-all" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="#3B82F6" d="M22.5 4H1.5C.672 4 0 4.672 0 5.5v13C0 19.328.672 20 1.5 20h21c.828 0 1.5-.672 1.5-1.5v-13C24 4.672 23.328 4 22.5 4z"/>
+                            <path fill="#60A5FA" d="M12 13L24 5.5V5c0-.828-.672-1.5-1.5-1.5h-21C.672 3.5 0 4.172 0 5v.5L12 13z"/>
+                            <path fill="#2563EB" d="M0 18.5V6.5l8 5L0 18.5z"/>
+                            <path fill="#1D4ED8" d="M24 18.5v-12l-8 5 8 7z"/>
+                        </svg>
+                    `;
+                } else if (item.ikon === 'linkedin') {
+                    hoverColorClass = 'group-hover:text-[#0A66C2]';
+                    svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>`;
+                } else if (item.ikon === 'instagram') {
+                    hoverColorClass = 'group-hover:text-[#E4405F]';
+                    svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>`;
+                } else {
+                    hoverColorClass = 'group-hover:text-brand-500';
+                    svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>`;
+                }
+
+                const isEmail = item.tipe === 'email';
+                const hrefVal = isEmail ? '#' : item.nilai;
+                const targetAttr = isEmail ? '' : 'target="_blank" rel="noopener noreferrer"';
+                const dataEmailAttr = isEmail ? `data-email="${item.nilai}" data-type="email"` : '';
+
+                kontakContainer.insertAdjacentHTML('beforeend', `
+                    <a href="${hrefVal}" ${targetAttr} ${dataEmailAttr} class="bento-card p-4 flex items-center gap-3 text-slate-700 dark:text-slate-300 group cursor-pointer">
+                        <div class="p-2.5 bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 ${hoverColorClass} rounded-xl group-hover:scale-110 group-hover:rotate-6 transition-transform relative flex items-center justify-center w-10 h-10">
+                            ${svgIcon}
+                        </div>
+                        <div class="truncate">
+                            <p class="text-xs text-slate-400 dark:text-slate-500 font-medium">${item.namaPlatform}</p>
+                            <span class="text-sm font-semibold truncate block group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">${item.label}</span>
+                        </div>
+                    </a>
+                `);
+            });
+
+            // Handler Interaksi Salin Email
+            const toastEl = document.getElementById('email-toast');
+            const toastText = document.getElementById('toast-text');
+            document.querySelectorAll('[data-type="email"]').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const email = el.getAttribute('data-email');
+                    try { window.location.href = `mailto:${email}`; } catch (err) {}
+                    navigator.clipboard.writeText(email).then(() => {
+                        toastText.textContent = `Email (${email}) copied!`;
+                        toastEl.classList.remove('translate-y-20', 'opacity-0');
+                        setTimeout(() => { toastEl.classList.add('translate-y-20', 'opacity-0'); }, 3000);
+                    }).catch(() => { window.open(`mailto:${email}`); });
+                });
             });
 
             const icons = {
